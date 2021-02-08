@@ -1,0 +1,32 @@
+1. Установить выбранный форк MySQL Server.
+
+# sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+
+# sudo percona-release setup ps80
+
+# sudo yum install percona-server-server
+
+# mysql_secure_installation
+
+2.
+
+# mysql < /root/db.sql
+# mysql -e "SHOW DATABASES;" > db_result.txt
+
+Database
+information_schema
+mysql
+performance_schema
+skytech
+
+# mysql -e "use skytech; SHOW TABLES;" > tables_result.txt
+Tables_in_skytech
+b_sale_basket
+
+3. Какие ситуации, вызывающие рост количества запросов, могут случаться на сервере? Мы рассмотрели не все.
+
+- Когда отсутствиую индексы в таблицах
+- Когда отсутствует кэширование
+- Когда составлен неправильный запрос к БД
+- Нагрузка в соответствии с рабочими часами
+- Построение отчетности
