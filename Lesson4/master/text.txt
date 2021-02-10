@@ -1,0 +1,31 @@
+[vagrant@10 /]$ ip a
+
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:82:1c:77 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global noprefixroute dynamic eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5587:ef15:c05:d9cf/64 scope link
+       valid_lft forever preferred_lft forever
+
+
+  mysql> show databases;
+  +--------------------+
+  | Database           |
+  +--------------------+
+  | information_schema |
+  | mysql              |
+  | new_database       |
+  | performance_schema |
+  | skytech            |
+  | sys                |
+  +--------------------+
+  6 rows in set (0.00 sec)
+  
+
+  mysql> show master status;
++------------------+----------+--------------+------------------+-------------------+
+| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
++------------------+----------+--------------+------------------+-------------------+
+| mysql-bin.000001 |      323 | skytech      |                  |                   |
++------------------+----------+--------------+------------------+-------------------+
+1 row in set (0.00 sec)
