@@ -1,0 +1,65 @@
+1. Построить NGINX-балансировку между двумя виртуальными машинами. Доказать, что балансировка происходит.
+
+vi /etc/nginx/conf.d/upstream.conf
+
+upstream backend {
+  server mysite.local:8080;
+  server mysite_2.local:8080;
+}
+
+server {
+  listen 80;
+  server_name mysite.local;
+
+  location / {
+    proxy_pass  http://backend;
+  }
+}
+
+
+index.php(первый сервер):
+
+<?php
+
+echo 'server 1';
+
+
+index.php(второй сервер):
+
+<?php
+
+echo 'server 2';
+
+Когда перезагружал страницу поочереди выдавался то server 1, то server 2.
+
+
+2. Реализовать альтернативное хранение сессий в Memcached.
+
+php.ini:
+
+[Session]
+session.save_handler = memcache
+session.save_path = "127.0.0.1:11211"
+
+На обоих серверах вписал в файле index.php 
+
+session_start();
+if (!isset($_SESSION['count'])) {
+  $_SESSION['count'] = 0;
+} else {
+  $_SESSION['count']++;
+}
+var_dump($_SESSION['count']);
+
+ 
+Так как после балансировки нагрузки по очереди кидало на два сервера, после каждого обновления страницы счётчик тоже обновлялся, что значит,
+что хранилище общее для двух машин.
+
+
+3. Настроить NGINX для работы с символьной ссылкой.
+
+Создал ссылку:
+
+ln -s /var/www/html /var/www/production/
+
+В /etc/nginx/sites-available/default прописал новый root - /var/www/production;
